@@ -12,6 +12,7 @@ use utoipa_swagger_ui::SwaggerUi;
 pub mod util;
 
 mod error;
+mod event;
 mod schema;
 mod sqlite_mapping;
 mod user;
@@ -24,8 +25,14 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
 // All paths and types exposed by the API have to be listed here or they won't show up in Swagger.
 #[derive(OpenApi)]
 #[openapi(
-    paths(user::get_all, user::get_by_username, user::post),
-    components(schemas(user::User, user::PostUser))
+    paths(
+        user::get_all,
+        user::get_by_username,
+        user::post,
+        event::get_all,
+        event::get_by_id
+    ),
+    components(schemas(user::User, user::PostUser, event::Event))
 )]
 struct ApiDoc;
 
@@ -39,11 +46,10 @@ pub async fn api_route(pool: SqlitePool) -> anyhow::Result<Router> {
         // handles requests for that path wrapped by a function with the name of the http method
         // that should be listened for.
         .route("/api/user", get(user::get_all))
-        // This is an example of a parameter within the path.
         .route("/api/user/:username", get(user::get_by_username))
-        // An example of a different http method.
         .route("/api/user", post(user::post))
-        // We store the database connection pool to make it accessible for any endpoint.
+        .route("/api/event", get(event::get_all))
+        .route("/api/event/:id", get(event::get_by_id))
         .layer(Extension(pool)))
 }
 

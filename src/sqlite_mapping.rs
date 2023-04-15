@@ -3,5 +3,4 @@
 // https://github.com/diesel-rs/diesel/issues/852
 
 pub use diesel::sql_types::*;
-
 pub type Integer = BigInt;
