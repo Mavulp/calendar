@@ -24,6 +24,7 @@ jobs:
       - run: chmod +x rustup.sh
       - run: ./rustup.sh -y
       - run: rustup update stable
+      - uses: actions/checkout@v3
 
       - name: Save cache
         uses: actions/cache/save@v3
