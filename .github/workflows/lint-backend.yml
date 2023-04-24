@@ -8,15 +8,9 @@ jobs:
     name: Lint backend
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          components: cargo, clippy
-
-      - uses: actions/cache@v3
+      - name: Restore cache
+        uses: actions/cache/restore@v3
         with:
           path: |
             ~/.cargo/bin/
@@ -26,8 +20,18 @@ jobs:
             backend/target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Run cargo clippy
-        uses: actions-rs/clippy-check@v1
+      - run: apt install rustup
+      - run: rustup update stable
+
+      - name: Save cache
+        uses: actions/cache/save@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features --manifest-path Cargo.toml -- -D warnings
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Run cargo clippy
+        run: cargo clippy --all-targets -- -D warnings
