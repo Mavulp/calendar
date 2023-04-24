@@ -16,7 +16,6 @@ jobs:
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
-            backend/target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs >> rustup.sh 
@@ -24,6 +23,9 @@ jobs:
       - run: ./rustup.sh -y
       - run: rustup update stable
       - uses: actions/checkout@v3
+
+      - name: Run cargo clippy
+        run: cargo test
 
       - name: Save cache
         uses: actions/cache/save@v3
@@ -35,5 +37,3 @@ jobs:
             ~/.cargo/git/db/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - name: Run cargo clippy
-        run: cargo test
