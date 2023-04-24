@@ -21,7 +21,7 @@ jobs:
 
       - run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs >> rustup.sh 
       - run: chmod +x rustup.sh
-      - run: yes 1 | ./rustup.sh
+      - run: ./rustup.sh -y
       - run: rustup update stable
 
       - name: Save cache
