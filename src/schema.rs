@@ -3,16 +3,6 @@
 diesel::table! {
     use crate::sqlite_mapping::*;
 
-    event_guests (id) {
-        id -> Integer,
-        event_id -> Integer,
-        guest_name -> Text,
-    }
-}
-
-diesel::table! {
-    use crate::sqlite_mapping::*;
-
     events (id) {
         id -> Integer,
         title -> Text,
@@ -34,11 +24,7 @@ diesel::table! {
     }
 }
 
-diesel::joinable!(event_guests -> events (event_id));
-diesel::joinable!(event_guests -> users (guest_name));
-
 diesel::allow_tables_to_appear_in_same_query!(
-    event_guests,
     events,
     users,
 );
