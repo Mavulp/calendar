@@ -2,5 +2,5 @@
 
 export interface User {
   username: string;
-  createdAt: bigint;
+  created_at: bigint;
 }

@@ -16,7 +16,6 @@ use crate::SqlitePool;
 #[derive(Debug, Serialize, TS, ToSchema, Queryable, Insertable)]
 #[ts(export, export_to = "types/")]
 #[serde(rename_all = "camelCase")]
-
 pub struct Event {
     #[schema(example = 1)]
     pub id: i64,
@@ -48,7 +47,6 @@ pub struct Event {
         (status = 200, description = "Events are returned", body = [Event]),
     )
 )]
-
 // Return all events
 pub async fn get_all(Extension(pool): Extension<SqlitePool>) -> Result<Json<Vec<Event>>, Error> {
     let mut conn = pool.get().await.expect("can connect to sqlite");
@@ -101,22 +99,28 @@ pub async fn get_by_id(
 pub struct PostEvent {
     #[schema(example = "Big Mike")]
     pub title: String,
+
     #[schema(example = "We hike for 7 days in Norwegian plateau.")]
     pub description: Option<String>,
+
     #[schema(example = "#87d45d")]
     pub color: Option<String>,
+
     #[schema(example = 1691226000)]
     pub start_date: i64,
+
     #[schema(example = 1691830800)]
     pub end_date: i64,
+
     #[schema(example = 60.0520)]
     pub location_lng: Option<f32>,
+
     #[schema(example = 7.4142)]
     pub location_lat: Option<f32>,
+
+    #[ts(skip)]
     #[serde(skip, default = "unix_timestamp")]
     pub created_at: i64,
-    // #[serde(skip)]
-    // pub edited_at: i64,
 }
 
 /// Post an event
@@ -175,18 +179,26 @@ pub async fn delete_by_id(
 pub struct PutEvent {
     #[schema(example = "Big Mike")]
     pub title: Option<String>,
+
     #[schema(example = "We hike for 7 days in Norwegian plateau.")]
     pub description: Option<String>,
+
     #[schema(example = "#87d45d")]
     pub color: Option<String>,
+
     #[schema(example = 1691226000)]
     pub start_date: Option<i64>,
+
     #[schema(example = 1691830800)]
     pub end_date: Option<i64>,
+
     #[schema(example = 60.0520)]
     pub location_lng: Option<f32>,
+
     #[schema(example = 7.4142)]
     pub location_lat: Option<f32>,
+
+    #[ts(skip)]
     #[serde(skip, default = "unix_timestamp")]
     pub edited_at: i64,
 }

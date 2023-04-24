@@ -2,13 +2,13 @@
 
 export interface Event {
   id: bigint;
-  createdAt: bigint;
-  editedAt: bigint;
   title: string;
   description: string | null;
   color: string | null;
-  startDate: bigint;
-  endDate: bigint;
-  locationLng: number | null;
-  locationLat: number | null;
+  start_date: bigint;
+  end_date: bigint;
+  location_lng: number | null;
+  location_lat: number | null;
+  created_at: bigint;
+  edited_at: bigint | null;
 }
