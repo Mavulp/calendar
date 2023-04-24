@@ -1,4 +1,4 @@
-use std::ops::Deref;
+use std::{ops::Deref, time::SystemTime};
 
 use crate::error::Error;
 use serde::{Deserialize, Deserializer};
@@ -16,6 +16,10 @@ where
     }
 
     Ok(None)
+}
+
+pub fn unix_timestamp() -> i64 {
+    SystemTime::UNIX_EPOCH.elapsed().unwrap().as_secs() as i64
 }
 
 // This is part of what we used to do input validation for hivefriends.

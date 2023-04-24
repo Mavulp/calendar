@@ -20,7 +20,7 @@ futures = "0.3.25"
 utoipa = { version = "3.0.0", features = ["axum_extras", "openapi_extensions"] }
 utoipa-swagger-ui = { version = "3.0.2", features = ["axum"] }
 ts-rs = { version = "6.2.1", features = ["format"] }
-diesel = { version = "2.0.3", features = ["sqlite", "chrono"] }
+diesel = { version = "2.0.3", features = ["sqlite", "time"] }
 diesel_migrations = { version = "2.0.0", features = ["sqlite"] }
 bb8 = "0.8.0"
 bb8-diesel = { git = "https://github.com/overdrivenpotato/bb8-diesel" }
