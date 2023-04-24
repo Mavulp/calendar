@@ -18,7 +18,7 @@ jobs:
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
-          key: ${{ runner.os }}-cargo-lint
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Run cargo clippy
         run: cargo clippy --all-targets -- -D warnings
@@ -31,4 +31,5 @@ jobs:
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
-          key: ${{ runner.os }}-cargo-lint
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
