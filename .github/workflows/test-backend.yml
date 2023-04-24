@@ -8,6 +8,8 @@ jobs:
     name: Test backend
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - name: Restore cache
         uses: actions/cache/restore@v3
         with:
@@ -22,7 +24,6 @@ jobs:
       - run: chmod +x rustup.sh
       - run: ./rustup.sh -y
       - run: rustup update stable
-      - uses: actions/checkout@v3
 
       - name: Run cargo clippy
         run: cargo test
