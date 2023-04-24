@@ -1,6 +1,6 @@
 use anyhow::Context;
 use axum::{
-    routing::{get, post, Router},
+    routing::{delete, get, post, put, Router},
     Extension,
 };
 use bb8_diesel::DieselConnectionManager;
@@ -30,9 +30,18 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
         user::get_by_username,
         user::post,
         event::get_all,
-        event::get_by_id
+        event::get_by_id,
+        event::post,
+        event::delete_by_id,
+        event::put,
     ),
-    components(schemas(user::User, user::PostUser, event::Event))
+    components(schemas(
+        user::User,
+        user::PostUser,
+        event::Event,
+        event::PostEvent,
+        event::PutEvent
+    ))
 )]
 struct ApiDoc;
 
@@ -49,7 +58,10 @@ pub async fn api_route(pool: SqlitePool) -> anyhow::Result<Router> {
         .route("/api/user/:username", get(user::get_by_username))
         .route("/api/user", post(user::post))
         .route("/api/event", get(event::get_all))
+        .route("/api/event", post(event::post))
         .route("/api/event/:id", get(event::get_by_id))
+        .route("/api/event/:id", delete(event::delete_by_id))
+        .route("/api/event/:id", put(event::put))
         .layer(Extension(pool)))
 }
 

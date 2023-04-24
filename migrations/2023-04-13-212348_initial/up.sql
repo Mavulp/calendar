@@ -17,7 +17,9 @@ CREATE TABLE events (
     start_date INTEGER NOT NULL,
     end_date INTEGER NOT NULL,
     location_lng REAL NULL,
-    location_lat REAL NULL
+    location_lat REAL NULL,
+    created_at INTEGER NOT NULL,
+    edited_at INTEGER NULL
 ) STRICT;
 
 -- CREATE TABLE event_guests (

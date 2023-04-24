@@ -12,6 +12,8 @@ diesel::table! {
         end_date -> Integer,
         location_lng -> Nullable<Float>,
         location_lat -> Nullable<Float>,
+        created_at -> Integer,
+        edited_at -> Nullable<Integer>,
     }
 }
 
