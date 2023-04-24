@@ -7,9 +7,6 @@ jobs:
   test:
     name: Test backend
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
     steps:
       - uses: actions/checkout@v2
       
@@ -27,5 +24,5 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --manifest-path backend/Cargo.toml
+          args: --manifest-path Cargo.toml
 
