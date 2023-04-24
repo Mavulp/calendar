@@ -2,37 +2,39 @@ name: Lint backend
 
 on:
   push:
-    paths:
-      - 'backend/**'
 
 jobs:
   lint:
     name: Lint backend
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
     steps:
-      - uses: actions/checkout@v2
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          components: cargo, clippy
-
-      - uses: actions/cache@v3
+      - name: Restore cache
+        uses: actions/cache/restore@v3
         with:
           path: |
             ~/.cargo/bin/
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
-            backend/target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
+      - run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs >> rustup.sh 
+      - run: chmod +x rustup.sh
+      - run: ./rustup.sh -y
+      - run: rustup update stable
+      - uses: actions/checkout@v3
+
       - name: Run cargo clippy
-        uses: actions-rs/clippy-check@v1
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Save cache
+        uses: actions/cache/save@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: --all-features --manifest-path backend/Cargo.toml -- -D warnings
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
