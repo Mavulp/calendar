@@ -20,7 +20,7 @@ jobs:
             backend/target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-      - run: apt install rustup
+      - run: sudo apt install rustup
       - run: rustup update stable
 
       - name: Save cache
