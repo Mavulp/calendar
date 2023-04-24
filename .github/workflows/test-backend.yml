@@ -2,8 +2,6 @@ name: Test backend
 
 on:
   pull_request:
-    paths:
-      - 'backend/**'
 
 jobs:
   test:
