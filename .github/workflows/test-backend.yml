@@ -18,7 +18,7 @@ jobs:
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-test
 
       - run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs >> rustup.sh 
       - run: chmod +x rustup.sh
@@ -36,5 +36,4 @@ jobs:
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-
+          key: ${{ runner.os }}-cargo-test
