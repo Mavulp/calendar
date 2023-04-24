@@ -20,10 +20,6 @@ use crate::SqlitePool;
 pub struct Event {
     #[schema(example = 1)]
     pub id: i64,
-    #[schema(example = 1691830400)]
-    pub created_at: i64,
-    #[schema(example = 1691830600)]
-    pub edited_at: Option<i64>,
     #[schema(example = "Big Mike")]
     pub title: String,
     #[schema(example = "We hike for 7 days in Norwegian plateau.")]
@@ -38,6 +34,10 @@ pub struct Event {
     pub location_lng: Option<f32>,
     #[schema(example = 7.4142)]
     pub location_lat: Option<f32>,
+    #[schema(example = 1691830400)]
+    pub created_at: i64,
+    #[schema(example = 1691830600)]
+    pub edited_at: Option<i64>,
 }
 
 /// Get a list of all events
