@@ -7,11 +7,12 @@ diesel::table! {
         id -> Integer,
         title -> Text,
         description -> Nullable<Text>,
-        color -> Nullable<Text>,
+        color -> Text,
         start_date -> Integer,
         end_date -> Integer,
         location_lng -> Nullable<Float>,
         location_lat -> Nullable<Float>,
+        location_name -> Nullable<Float>,
         created_at -> Integer,
         edited_at -> Nullable<Integer>,
     }
