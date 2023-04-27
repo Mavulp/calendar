@@ -145,7 +145,7 @@ pub struct PostEvent {
 /// Post an event
 #[utoipa::path(
     post,
-    path = "/api/event/{id}",
+    path = "/api/event",
     responses(
         (status = 200, description = "Posted an event", body = [PostEvent]),
     )
