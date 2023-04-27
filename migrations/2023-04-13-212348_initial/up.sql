@@ -18,7 +18,7 @@ CREATE TABLE events (
     end_date INTEGER NOT NULL,
     location_lng REAL NULL,
     location_lat REAL NULL,
-    location_name REAL NULL,
+    location_name TEXT NULL,
     created_at INTEGER NOT NULL,
     edited_at INTEGER NULL
 ) STRICT;
