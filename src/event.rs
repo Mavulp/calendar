@@ -20,7 +20,7 @@ use crate::SqlitePool;
 // `guests`    - list of available authenticated users (?) who are invited to the users (Vec<string / i64>)
 
 #[derive(Debug, Serialize, TS, ToSchema, Queryable, Insertable)]
-#[ts(export, export_to = "dist/types/")]
+#[ts(export, export_to = "dist/")]
 pub struct Event {
     #[schema(example = 1)]
     pub id: i64,
@@ -110,7 +110,7 @@ pub async fn get_by_id(
 
 // Post Event
 #[derive(Debug, Deserialize, TS, ToSchema, Insertable)]
-#[ts(export, export_to = "dist/types/")]
+#[ts(export, export_to = "dist/")]
 #[diesel(table_name = events)]
 pub struct PostEvent {
     #[schema(example = "Big Mike")]
@@ -192,7 +192,7 @@ pub async fn delete_by_id(
 
 // Put Event
 #[derive(Debug, Deserialize, TS, ToSchema, AsChangeset)]
-#[ts(export, export_to = "dist/types/")]
+#[ts(export, export_to = "dist/")]
 #[diesel(table_name = events)]
 pub struct PutEvent {
     #[schema(example = "Big Mike")]

@@ -1,0 +1,9 @@
+{
+  "name": "@mavulp/calendar",
+  "description": "Repository for calendar bindings",
+  "authors": "@dolanske",
+  "version": "0.0.2",
+  "main": "./dist/",
+  "types": "./dist/"
+
+}
