@@ -6,9 +6,9 @@ use axum::{
 use bb8_diesel::DieselConnectionManager;
 use diesel::SqliteConnection;
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
+use tower_http::cors::CorsLayer;
 use utoipa::OpenApi;
 use utoipa_swagger_ui::SwaggerUi;
-use tower_http::cors::CorsLayer;
 
 pub mod util;
 
@@ -63,8 +63,8 @@ pub async fn api_route(pool: SqlitePool) -> anyhow::Result<Router> {
         .route("/api/event/:id", get(event::get_by_id))
         .route("/api/event/:id", delete(event::delete_by_id))
         .route("/api/event/:id", put(event::put))
-        .layer(Extension(pool)))
-        .layer(CorsLayer::permissive())
+        .layer(Extension(pool))
+        .layer(CorsLayer::permissive()))
 }
 
 // This just renames the type to make it shorter to type.
