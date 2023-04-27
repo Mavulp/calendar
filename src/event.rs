@@ -13,28 +13,45 @@ use crate::error::Error;
 use crate::schema::events;
 use crate::SqlitePool;
 
+// TODO The event struct needs to be enriched by user data. This will
+// reference table of registered users. I would assume that will be part
+// of the conversation once authentication is in.
+// `organizer` - the authenticated user ID who created the event (string / i64)
+// `guests`    - list of available authenticated users (?) who are invited to the users (Vec<string / i64>)
+
 #[derive(Debug, Serialize, TS, ToSchema, Queryable, Insertable)]
-#[ts(export, export_to = "types/")]
-#[serde(rename_all = "camelCase")]
+#[ts(export, export_to = "dist/types/")]
 pub struct Event {
     #[schema(example = 1)]
     pub id: i64,
+
     #[schema(example = "Big Mike")]
     pub title: String,
+
     #[schema(example = "We hike for 7 days in Norwegian plateau.")]
     pub description: Option<String>,
+
     #[schema(example = "#87d45d")]
-    pub color: Option<String>,
+    pub color: String,
+
     #[schema(example = 1691226000)]
     pub start_date: i64,
+
     #[schema(example = 1691830800)]
     pub end_date: i64,
+
     #[schema(example = 60.0520)]
     pub location_lng: Option<f32>,
+
     #[schema(example = 7.4142)]
     pub location_lat: Option<f32>,
-    #[schema(example = 1691830400)]
+
+    #[schema(example = "Hardangervidda")]
+    pub location_name: Option<String>,
+
+    #[schema(example = 1691830000)]
     pub created_at: i64,
+
     #[schema(example = 1691830600)]
     pub edited_at: Option<i64>,
 }
@@ -93,8 +110,7 @@ pub async fn get_by_id(
 
 // Post Event
 #[derive(Debug, Deserialize, TS, ToSchema, Insertable)]
-#[ts(export, export_to = "types/")]
-#[serde(rename_all = "camelCase")]
+#[ts(export, export_to = "dist/types/")]
 #[diesel(table_name = events)]
 pub struct PostEvent {
     #[schema(example = "Big Mike")]
@@ -117,6 +133,9 @@ pub struct PostEvent {
 
     #[schema(example = 7.4142)]
     pub location_lat: Option<f32>,
+
+    #[schema(example = "Hardangervidda")]
+    pub location_name: Option<String>,
 
     #[ts(skip)]
     #[serde(skip, default = "unix_timestamp")]
@@ -173,8 +192,7 @@ pub async fn delete_by_id(
 
 // Put Event
 #[derive(Debug, Deserialize, TS, ToSchema, AsChangeset)]
-#[ts(export, export_to = "types/")]
-#[serde(rename_all = "camelCase")]
+#[ts(export, export_to = "dist/types/")]
 #[diesel(table_name = events)]
 pub struct PutEvent {
     #[schema(example = "Big Mike")]
@@ -197,6 +215,9 @@ pub struct PutEvent {
 
     #[schema(example = 7.4142)]
     pub location_lat: Option<f32>,
+
+    #[schema(example = "Hardangervidda")]
+    pub location_name: Option<String>,
 
     #[ts(skip)]
     #[serde(skip, default = "unix_timestamp")]

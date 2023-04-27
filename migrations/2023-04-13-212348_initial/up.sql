@@ -13,14 +13,16 @@ CREATE TABLE events (
     id INTEGER PRIMARY KEY NOT NULL,
     title TEXT NOT NULL,
     description TEXT NULL,
-    color TEXT NULL,
+    color TEXT NOT NULL,
     start_date INTEGER NOT NULL,
     end_date INTEGER NOT NULL,
     location_lng REAL NULL,
     location_lat REAL NULL,
+    location_name REAL NULL,
     created_at INTEGER NOT NULL,
     edited_at INTEGER NULL
 ) STRICT;
+
 
 -- CREATE TABLE event_guests (
 --     id INTEGER PRIMARY KEY NOT NULL,
@@ -39,3 +41,4 @@ CREATE TABLE events (
 --         REFERENCES events (id)
 --         ON DELETE CASCADE
 -- ) STRICT;
+
