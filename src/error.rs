@@ -16,8 +16,8 @@ pub enum Error {
     #[error("Not Found")]
     NotFound,
 
-    #[error("Unathorized")]
-    Unathorized,
+    #[error("Unauthorized")]
+    Unauthorized,
 
     // This is returned in hivefriends when a received field is too long.
     #[error("{field} should not be longer than {maximum_length} characters")]
@@ -61,7 +61,7 @@ impl IntoResponse for Error {
     fn into_response(self) -> Response {
         // First we figure out which status code the error correlates to.
         let status = match &self {
-            Error::Unathorized => StatusCode::UNAUTHORIZED,
+            Error::Unauthorized => StatusCode::UNAUTHORIZED,
             Error::NotFound => StatusCode::NOT_FOUND,
             Error::InternalError(e) => {
                 // In the case of an internal error we won't return any information to the front
